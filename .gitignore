@@ -1,0 +1,16 @@
+# Ignora la cache di Python
+__pycache__/
+*.pyc
+
+# Ignora file di ambiente con credenziali o chiavi API
+.env
+
+# Ignora eventuali file di database fisici (es. SQLite)
+*.db
+*.sqlite3
+
+# Ignora dati raw o CSV caricati (visto il file Upload_CSV.py)
+*.csv
+
+# Ignora file di appunti personali
+IDEAS.txt
