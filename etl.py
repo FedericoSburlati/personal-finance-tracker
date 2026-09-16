@@ -5,12 +5,12 @@ import re
 from db import execute_query
 
 def calcola_hash(data: str, importo: float, causale: str) -> str:
-    """Genera un hash SHA-256 univoco per prevenire duplicati."""
+    """Generazione di un hash SHA-256 univoco per prevenire duplicati in caso di ricaricamento."""
     chiave = f"{str(data).strip()}_{float(importo):.2f}_{str(causale).strip().lower()}"
     return hashlib.sha256(chiave.encode('utf-8')).hexdigest()
 
 def clean_amount(val) -> float:
-    """Normalizza qualsiasi formato monetario in float standard."""
+    """Normalizzazione dei vari formati monetario in float standard."""
     if pd.isna(val):
         return 0.0
     if isinstance(val, (int, float)):
@@ -26,12 +26,12 @@ def clean_amount(val) -> float:
     return float(val_str)
 
 def parse_intesa(file_bytes) -> pd.DataFrame:
-    """Parser dedicato a Intesa Sanpaolo: salta i metadati fino alla riga di header."""
+    """Parser dedicato a Intesa Sanpaolo: salta i vari metadati fino alla riga di header."""
     # Decodifica il file gestendo eventuali caratteri speciali (latin-1 / utf-8)
     content = file_bytes.getvalue().decode("latin-1")
     lines = content.splitlines()
     
-    # Individua l'indice della riga che contiene le intestazioni reali
+    # individuazione dell'indice della riga che contiene le intestazioni reali
     header_idx = None
     for idx, line in enumerate(lines):
         if "Data" in line and "Operazione" in line and "Importo" in line:
@@ -41,28 +41,28 @@ def parse_intesa(file_bytes) -> pd.DataFrame:
     if header_idx is None:
         raise ValueError("Header non trovato nel file Intesa Sanpaolo.")
         
-    # Carica in dataframe saltando i metadati
+    # caricamento in dataframe saltando i metadati
     csv_data = "\n".join(lines[header_idx:])
     df = pd.read_csv(io.StringIO(csv_data), sep=";", decimal=",")
     
-    # Rimuove eventuali colonne vuote create dai ';' finali
+    # rimozione di eventuali colonne vuote create dai ';' finali
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')].dropna(how='all')
     
-    # Pulizia nomi colonne
+    # pulizia nomi colonne
     cols = {col.strip(): col for col in df.columns}
     
     clean_df = pd.DataFrame()
-    clean_df['Data'] = pd.to_datetime(df[cols['Data']], dayfirst=True).dt.strftime('%d-%m-%Y')
+    clean_df['Data'] = pd.to_datetime(df[cols['Data']], dayfirst=True).dt.strftime('%Y-%m-%d')
     clean_df['Importo'] = df[cols['Importo']].apply(clean_amount)
     
-    # Unisce 'Operazione' e 'Dettagli' per creare una causale descrittiva ricca
+    # unione di 'Operazione' e 'Dettagli' per creare una causale descrittiva ricca
     clean_df['Causale'] = (df[cols['Operazione']].fillna('') + " - " + df[cols.get('Dettagli', cols['Operazione'])].fillna('')).str.strip(" -")
     clean_df['Banca'] = 'Intesa Sanpaolo'
     
     return clean_df
 
 def parse_hype(file_bytes_or_df) -> pd.DataFrame:
-    """Parser dedicato a Hype: gestisce separatore ';', encoding e unione causale."""
+    """Parser dedicato ad Hype: gestisce separatore ';', encoding e unione causale."""
     if hasattr(file_bytes_or_df, 'getvalue'):
         try:
             content = file_bytes_or_df.getvalue().decode('utf-8')
@@ -72,14 +72,14 @@ def parse_hype(file_bytes_or_df) -> pd.DataFrame:
     else:
         df = file_bytes_or_df
 
-    # Normalizzazione nomi colonne (rimuove spazi e caratteri non standard)
+    # normalizzazione nomi colonne (hype.csv contiene tanti caratteri non standard)
     col_map = {re.sub(r'[^a-zA-Z]', '', c).lower(): c for c in df.columns}
     
-    # Individuazione dinamica delle colonne
+    # individuazione dinamica delle colonne
     col_data = next((col_map[c] for c in ['dataoperazione', 'data'] if c in col_map), df.columns[0])
     col_importo = next((col_map[c] for c in ['importo', 'importoeur', 'ammontare'] if c in col_map), None)
     
-    # Se non trova 'importo', prende la colonna che contiene la parola
+    # se 'importo' non presente prende la colonna che contiene la parola
     if not col_importo:
         col_importo = [c for c in df.columns if 'importo' in c.lower()][0]
 
@@ -88,10 +88,10 @@ def parse_hype(file_bytes_or_df) -> pd.DataFrame:
     col_tipo = col_map.get('tipologia', None)
 
     clean_df = pd.DataFrame()
-    clean_df['Data'] = pd.to_datetime(df[col_data], dayfirst=True).dt.strftime('%d-%m-%Y')
+    clean_df['Data'] = pd.to_datetime(df[col_data], dayfirst=True).dt.strftime('%Y-%m-%d')
     clean_df['Importo'] = df[col_importo].apply(clean_amount)
     
-    # Combina Tipologia, Nome esercente e Descrizione per un matching RegEx accurato
+    # combina Tipologia, Nome esercente e Descrizione per matching RegEx
     causali = []
     for _, r in df.iterrows():
         parti = []
@@ -110,7 +110,7 @@ def parse_hype(file_bytes_or_df) -> pd.DataFrame:
 def parse_satispay(df: pd.DataFrame) -> pd.DataFrame:
     """Parser ottimizzato per estratto conto Satispay."""
     
-    # Normalizzazione intestazioni per accesso sicuro
+    # normalizzazione intestazioni per accesso sicuro
     cols = {col.strip().lower(): col for col in df.columns}
     
     col_data = cols.get('data', df.columns[0])
@@ -120,35 +120,35 @@ def parse_satispay(df: pd.DataFrame) -> pd.DataFrame:
     col_tipo = cols.get('tipo')
     col_stato = cols.get('stato')
     
-    #Filtro Transazioni: si cancellano le transazioni di tipo 'Annullato'
+    # filtro "Transazioni": si cancellano le transazioni di tipo 'Annullato'
     if col_stato:
         df = df[df[col_stato].astype(str).str.contains('Approvato', case=False, na=False)]
     
     clean_df = pd.DataFrame()
     
-    #Formattazione data
-    clean_df['Data'] = pd.to_datetime(df[col_data], dayfirst=True, errors='coerce').dt.strftime('%d-%m-%Y')
+    #formattazione data
+    clean_df['Data'] = pd.to_datetime(df[col_data], dayfirst=True, errors='coerce').dt.strftime('%Y-%m-%d')
     
-    #Pulizia importo richiamando la funzione esistente nell'ETL
+    # pulizia importo richiamando la funzione esistente nell'ETL
     clean_df['Importo'] = df[col_importo].apply(clean_amount)
     
-    #Creazione Causale Arricchita
+    #creazione 'Causale' combinata
     nome_str = df[col_nome].fillna('').astype(str) if col_nome else ''
     desc_str = df[col_desc].fillna('').astype(str) if col_desc else ''
     tipo_str = df[col_tipo].fillna('').astype(str) if col_tipo else ''
-    #Concatenazione dei campi
+    # concatenazione campi
     causale_completa = nome_str + " - " + desc_str + " - " + tipo_str
     
-    # Rimozione dei caratteri non ASCII generati da problemi di codifica del CSV
+    # rimozione dei caratteri non ASCII generati da problemi di codifica del CSV
     causale_completa = causale_completa.apply(lambda x: re.sub(r'[^\x00-\x7F\xa0-\xff]', '', str(x)))
     
-    # Pulizia profonda dei trattini ridondanti: se manca la descrizione, evita risultati come "Nome - - Tipo"
+    # pulizia profonda dei trattini ridondanti: se manca la descrizione, evita risultati come "Nome - - Tipo"
     causale_completa = causale_completa.str.replace(r'(\s*-\s*)+', ' - ', regex=True).str.strip(' -')
 
     clean_df['Causale'] = causale_completa
     clean_df['Banca'] = 'Satispay'
     
-    #Pre-categorizzazione Giroconti con aggiunta marcatore per agevolare categorizer.py
+    #pre-categorizzazione Giroconti con aggiunta marcatore per aiutare 'categorizer.py'
     giroconti_keywords = ['Dalla Banca', 'Verso la Banca', 'Risparmi', 'Investimento']
     mask_giroconto = clean_df['Causale'].str.contains('|'.join(giroconti_keywords), case=False, na=False)
     clean_df.loc[mask_giroconto, 'Causale'] = '[GIROCONTO] ' + clean_df.loc[mask_giroconto, 'Causale']
@@ -164,7 +164,7 @@ def transform_and_load(df_raw: pd.DataFrame, banca: str) -> tuple[int, int]:
     elif banca == "Satispay":
         df_norm = parse_satispay(df_raw)
     else:
-        raise ValueError("Banca non supportata")
+        raise ValueError("Banca non supportata") #check ridondante visto che si seleziona banca da lista
     
     # Generazione Hash Univoco per ogni riga
     df_norm['Hash_Duplicato'] = df_norm.apply(

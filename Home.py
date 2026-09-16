@@ -94,7 +94,7 @@ st.divider()
 st.subheader("Panoramica Mensile")
 met1, met2, met3 = st.columns(3)
 
-# Query con COALESCE per forzare 0 al posto di NULL se la tabella è vuota
+# query con COALESCE per forzare 0 al posto di NULL se la tabella è vuota
 saldo_attuale = run_query("SELECT COALESCE(SUM(T.Importo), 0) as tot FROM TRANSAZIONE T")
 tot_entrate = run_query("SELECT COALESCE(SUM(T.Importo), 0) as tot FROM TRANSAZIONE T WHERE T.Importo > 0")
 tot_uscite = run_query("SELECT COALESCE(SUM(T.Importo), 0) as tot FROM TRANSAZIONE T WHERE T.Importo < 0 AND T.Categoria <> 'Giroconto'")
@@ -137,10 +137,10 @@ with met3:
 
 st.subheader("📊 Analisi Spese Interattiva")
 
-# --- 1. SEZIONE FILTRI TEMPORALI GLOBALI ---
+# FILTRI TEMPORALI GLOGABI
 st.write("### Seleziona il periodo di analisi")
 
-# Rilevamento dinamico degli anni e della data più recente presente nel DB
+# rilevamento dinamico degli anni e della data più recente presente nel DB per selezione periodo di tempo
 anni_db = run_query("""
     SELECT DISTINCT YEAR(CASE WHEN Data LIKE '__-__-____' THEN STR_TO_DATE(Data, '%d-%m-%Y') ELSE Data END) as anno 
     FROM TRANSAZIONE 
@@ -155,7 +155,7 @@ max_d_query = run_query("SELECT MAX(CASE WHEN Data LIKE '__-__-____' THEN STR_TO
 data_default = pd.to_datetime(max_d_query['max_d'][0]).date() if not max_d_query.empty and pd.notna(max_d_query['max_d'][0]) else date.today()
 
 col_vista, col_dettaglio = st.columns(2)
-
+#selezione lasso di tempo
 with col_vista:
     vista = st.radio(
         "Granularità:",
@@ -199,8 +199,8 @@ start_iso = start_date.strftime('%Y-%m-%d')
 end_iso = end_date.strftime('%Y-%m-%d')
 
 
-# --- 2. ESTRAZIONE DATI FILTRATI (con utilizzo degli ALIAS e clausola WHERE) ---
-# Query per l'andamento nel tempo (compatibile sia con date native che con stringhe DD-MM-YYYY)
+#ESTRAZIONE DATI FILTRATI
+# Query per l'andamento nel tempo
 query_time = f"""
     SELECT 
         (CASE WHEN T.Data LIKE '__-__-____' THEN STR_TO_DATE(T.Data, '%d-%m-%Y') ELSE T.Data END) as Data,
@@ -208,8 +208,8 @@ query_time = f"""
     FROM TRANSAZIONE T
     WHERE (CASE WHEN T.Data LIKE '__-__-____' THEN STR_TO_DATE(T.Data, '%d-%m-%Y') ELSE T.Data END) 
           BETWEEN '{start_iso}' AND '{end_iso}'
-    GROUP BY Data 
-    ORDER BY Data
+    GROUP BY 1 
+    ORDER BY 1
 """
 df_time = run_query(query_time)
 
@@ -226,7 +226,7 @@ query_cat = f"""
 df_cat = run_query(query_cat)
 
 
-# --- 3. TAB VISUALIZZAZIONI ---
+#TAB VISUALIZZAZIONI
 tab_andamento, tab_categorie = st.tabs(["📈 Andamento nel Tempo", "🏷️ Spese per Categoria"])
 
 with tab_andamento:
@@ -240,7 +240,7 @@ with tab_andamento:
             except ValueError:
                 df_plot = df_time.resample('M').sum()
         else:
-            # Se siamo nel mese/settimana corrente, limitiamo l'asse ad oggi per non avere il vuoto a destra
+            # se siamo nel mese/settimana corrente, si limita l'asse alla data odierna per non avere il vuoto a destra
             data_fine_effettiva = min(end_date, date.today()) if start_date <= date.today() <= end_date else end_date
             idx_completo = pd.date_range(start=start_date, end=data_fine_effettiva)
             df_plot = df_time.reindex(idx_completo, fill_value=0)
@@ -252,6 +252,7 @@ with tab_andamento:
         n_punti = len(df_plot)
         bar_size = max(12, min(36, int(600 / max(n_punti, 1))))
 
+        #estetica
         with st.container(border=True):
             # 1. Barre dell'andamento
             bars = alt.Chart(df_plot).mark_bar(
@@ -324,12 +325,12 @@ with tab_categorie:
         totale_spese = float(df_cat['Totale'].sum())
         df_cat['Percentuale'] = (df_cat['Totale'] / totale_spese) * 100
 
-        # Riquadro contenitore con bordo in stile Glassmorphism
+        #estetica contenitore grafico
         with st.container(border=True):
             col_chart, col_details = st.columns([1.3, 1], gap="medium")
 
             with col_chart:
-                # 1. Base grafico a ciambella
+                #base donut plot
                 base_chart = alt.Chart(df_cat).encode(
                     theta=alt.Theta(field="Totale", type="quantitative", stack=True)
                 )
@@ -353,7 +354,7 @@ with tab_categorie:
                     ]
                 )
 
-                # 2. Testo con la cifra totale al centro
+                # testo cifra totale al centro del donut plot
                 text_importo = alt.Chart(pd.DataFrame({'tot': [totale_spese]})).mark_text(
                     text=f"€ {totale_spese:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
                     fontSize=21,
@@ -362,7 +363,7 @@ with tab_categorie:
                     yOffset=-6
                 )
 
-                # 3. Etichetta sotto l'importo al centro
+                # etichetta sotto l'importo al centro
                 text_label = alt.Chart(pd.DataFrame({'txt': ['Totale Speso']})).mark_text(
                     text="Totale Speso",
                     fontSize=11,
@@ -371,7 +372,7 @@ with tab_categorie:
                     yOffset=16
                 )
 
-                # Combinazione dei tre layer al centro
+                # combinazione layer al centro
                 chart_composto = (donut + text_importo + text_label).properties(
                     height=350
                 ).configure_view(
@@ -385,7 +386,7 @@ with tab_categorie:
             with col_details:
                 st.markdown("#### Principali Categorie")
                 
-                # Visualizzazione prime 5 categorie in card compatte
+                # visualizzazione top5 categorie
                 for _, row in df_cat.head(5).iterrows():
                     valore_formattato = f"€ {row['Totale']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
                     st.markdown(f"""
@@ -398,7 +399,7 @@ with tab_categorie:
                     </div>
                     """, unsafe_allow_html=True)
                 
-                # Se ci sono più di 5 categorie, segnala la parte rimanente
+                # se categorie > 5, Altre()
                 if len(df_cat) > 5:
                     altre_tot = df_cat.iloc[5:]['Totale'].sum()
                     altre_pct = (altre_tot / totale_spese) * 100

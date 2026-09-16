@@ -23,7 +23,7 @@ df_transazioni = run_query(query)
 # Renderizzazione a schermo
 if not df_transazioni.empty:
     # Formattazione della colonna Data per una visualizzazione pulita
-    df_transazioni['Data'] = pd.to_datetime(df_transazioni['Data'])
+    df_transazioni['Data'] = pd.to_datetime(df_transazioni['Data'], errors='coerce')
     df_transazioni['Mese_Anno'] = df_transazioni['Data'].dt.strftime('%B %Y')
 
     # dizionaro dei mesi per imporre lingua italiana
