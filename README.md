@@ -172,9 +172,3 @@ personal-finance-tracker/
 
 
 ```
-
-## 👤 Autore
-
-**Federico Sburlati**
-
-* GitHub: [@FedericoSburlati](https://github.com/FedericoSburlati?utm_source=gemini)
