@@ -30,19 +30,19 @@ flowchart TD
 
 ### Tecnologie e Librerie
 
-* **Interfaccia Web**: Streamlit (suddivisa in più pagine per caricare i file, vedere le tabelle e consultare i grafici).
+* **Interfaccia Web**: Streamlit (suddivisa in più pagine per caricare i file, vedere le tabelle e consultare i grafici)
 
-* **Grafici**: Altair (per grafici a torta e andamento nel tempo delle spese).
+* **Grafici**: Altair (per grafici a torta e andamento nel tempo delle spese)
 
-* **Elaborazione Dati**: Pandas (per leggere i CSV, formattare le date italiane e convertire gli importi).
+* **Elaborazione Dati**: Pandas (per leggere i CSV, formattare le date italiane e convertire gli importi)
 
-* **Database**: MySQL gestito tramite SQLAlchemy.
+* **Database**: MySQL gestito tramite SQLAlchemy
 
-* **Embeddings & Vettori**: `sentence-transformers` con il modello multilingua `paraphrase-multilingual-MiniLM-L12-v2`.
+* **Embeddings & Vettori**: `sentence-transformers` con il modello `paraphrase-multilingual-MiniLM-L12-v2`
 
-* **Modello Locale**: Ollama con `llama3.2:3b` per l'inferenza offline, con output strutturato in formato JSON.
+* **Modello Locale**: Ollama con `llama3.2:3b` per l'inferenza offline, con output JSON
 
-* **Test**: Pytest per i test automatici sul codice.
+* **Test**: Pytest
 
 ## Caratteristiche Principali
 
@@ -56,13 +56,13 @@ flowchart TD
 
 ### 2. Logica di Assegnazione delle Categorie
 
-Invece di mandare ogni spesa all'LLM (operazione lenta e pesante per il PC), il sistema usa tre passaggi:
+Invece di mandare ogni spesa all'LLM il sistema usa tre passaggi:
 
-1. **RegEx**: Se la causale contiene parole chiave evidenti (come *Netflix*, *Q8*, *Coop*), la categoria viene assegnata all'istante senza usare AI.
+1. **RegEx**: Se la causale contiene parole chiave evidenti (*Netflix*, *Coop*...), la categoria viene assegnata all'istante senza usare AI.
 
-2. **Confronto vettoriale**: Converte la descrizione in un vettore numerico e calcola la similarità del coseno con le spese già approvate nel database. Se la somiglianza supera la soglia di $0.85$, prende direttamente quella categoria, altrimenti passa allo step successivo.
+2. **Confronto vettoriale**: Converte la descrizione in un vettore numerico e calcola la similarità del coseno con le spese già approvate nel database. Se la somiglianza supera la soglia di 0.85, prende direttamente quella categoria, altrimenti passa allo step successivo. Nel caricamento vettoriale prima di calcolare l'embedding nuovo vengono rimosse le stopword bacarie dalla descrizione (es. pagamento, pos, SEPA, bonifico...) poiché eccessivo rumore aumenterebbe la vicinanza vettoriale anche tra transazioni di categorie molto diverse.
 
-3. **LLM su Ollama**: Se la somiglianza è bassa o il testo è ambiguo, invia la descrizione a Llama 3.2 chiedendogli di scegliere la categoria più coerente tra quelle disponibili, restituendo un JSON con motivazione e livello di sicurezza.
+3. **LLM via Ollama**: Se la somiglianza è bassa o il testo è ambiguo, invia la descrizione a Llama 3.2 chiedendogli di scegliere la categoria più coerente tra quelle disponibili, restituendo un JSON con motivazione e livello di sicurezza.
 
 ### 3. Mascheramento Dati Personali
 
@@ -91,6 +91,11 @@ pytest -v
 ```
 
 Per i componenti che richiederebbero Ollama o un server MySQL attivo sono stati usati dei mock (`unittest.mock`), così i test possono girare velocemente anche in locale o senza servizi accesi in background.
+
+## ⚠️ Limiti Noti
+
+* **Transazioni identiche nello stesso giorno**:  
+Attualmente l'algoritmo di deduplicazione genera l'hash univoco SHA-256 basandosi sulla tupla `(Data, Importo, Causale)`. Se nello stesso giorno vengono effettuate due transazioni distinte con importo e causale identici, la seconda operazione viene erroneamente scartata come duplicato in quanto gli estratti conto delle banche non forniscono il timestamp della transazione.
 
 ## Come Eseguire il Progetto
 
