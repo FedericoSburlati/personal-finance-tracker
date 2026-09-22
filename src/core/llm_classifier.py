@@ -3,9 +3,9 @@ Modulo: Classificatore ibrido LLM & RAG
 
 Funzionalità:
 - Soglie di similarità vettoriale:
-    1. Zona Calda: affinità forte con esempi storici, bypass dell'LLM e assegnazione automatica della categoria
-    2. Zona Grigia: affinità intermedia con esempi storici, interrogazione dell'LLM con aggiunta di top 3 esempi storici
-    3. Zona Fredda: affinità debole con esempi storici, interrogazione dell'LLM senza esmepi storici
+    1. Forte Affinità: alta similarità vettoriale con esempi storici, bypass dell'LLM e assegnazione automatica della categoria
+    2. Parziale Affinità: media similarità con esempi storici, interrogazione dell'LLM con aggiunta di top 3 esempi storici
+    3. Scarsa Affinità: bassa similarità con esempi storici, interrogazione dell'LLM senza esmepi storici
 - Output con valore di confidenza e motivazione
 """
 
@@ -67,38 +67,33 @@ ISTRUZIONI FORMATO RISPOSTA:
 """
 
 def classifica_con_rag(causale: str, importo: float, banca: str, model: str = "llama3.2:3b") -> dict:
-    """
-    Classificazione intelligente basata su 3 soglie:
-        1. Zona Calda (>= 0.85): affinità quasi identica, non si passa dall'LLM e si usa direttamente la memoria
-        2. Zona Grigia (0.40 - 0.85): affinità media, si passa dall'LLM dandogli gli esempi storici più vicini
-        3. Zona Fredda (< 0.40): affinità bassa, si passa dall'LLM con regole generali senza esempi storici
-    """
+    
     vs = get_vector_store()
     causale_sanitizzata = maschera_dati_sensibili(causale)
     
     vicini = vs.cerca_esempi_simili(causale_sanitizzata, k=3)
     top_sim = vicini[0]["similarita"] if vicini else 0.0
     
-    SOGLIA_ZONA_CALDA = 0.85
-    SOGLIA_ZONA_GRIGIA = 0.40
+    SOGLIA_FORTE_AFFINITA = 0.85
+    SOGLIA_PARZIALE_AFFINITA = 0.40
 
-    #ZONA CALDA
-    if top_sim >= SOGLIA_ZONA_CALDA:
+    #AFFINITA FORTE
+    if top_sim >= SOGLIA_FORTE_AFFINITA:
         miglior_match = vicini[0]
         return {
             "categoria": miglior_match["categoria"],
             "confidenza": 0.98,
-            "motivo": f"Affinità vettoriale diretta ({top_sim:.2f}) con: '{miglior_match['causale'][:30]}'",
-            "metodo": "RAG Diretto (Zona Calda)",
+            "motivo": f"Forte affinità vettoriale diretta ({top_sim:.2f}) con: '{miglior_match['causale'][:30]}'",
+            "metodo": "RAG Diretto (Forte Affinità)",
             "causale_sanitizzata": causale_sanitizzata
         }
 
     system_prompt = BASE_SYSTEM_PROMPT
-    metodo = "LLM Zero-Shot (Zona Fredda)"
+    metodo = "LLM Zero-Shot (Bassa Affinità)"
 
-    #ZONA GRIGIA
-    if top_sim >= SOGLIA_ZONA_GRIGIA:
-        metodo = "LLM Dynamic Few-Shot (Zona Grigia)"
+    #AFFINITA PARZIALE
+    if top_sim >= SOGLIA_PARZIALE_AFFINITA:
+        metodo = "LLM Dynamic Few-Shot (Parziale Affinità)"
         esempi_blocco = "\nESEMPI STORICI REALI RECUPERATI DAL DATABASE:\n"
         for v in vicini:
             esempi_blocco += f"- Causale: \"{v['causale']}\" -> Categoria: \"{v['categoria']}\"\n"
