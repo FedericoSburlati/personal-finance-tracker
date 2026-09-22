@@ -161,19 +161,18 @@ streamlit run Home.py
 
 ```
 personal-finance-tracker/
-├── assets/                  # Immagini per il README
-├── data/                    # CSV di esempio per testare il caricamento
-├── pages/                   # Le schermate dell'app Streamlit
-│   ├── 1_Transactions.py    # Tabella movimenti e filtri
-│   ├── 2_Upload_CSV.py      # Caricamento ed elaborazione file
-│   └── 3_Categorization.py  # Controllo categorie e chiamate AI
+├── data/
+├── pages/
+│   ├── 1_Transactions.py
+│   ├── 2_Upload_CSV.py
+│   └── 3_Categorization.py
 ├── src/
-│   ├── core/                # Moduli per RegEx, Ollama e vettori
-│   ├── database/            # Connessione e modelli delle tabelle
-│   └── etl/                 # Logica di lettura e pulizia dei file CSV
-├── tests/                   # File di test con Pytest
-├── Home.py                  # Schermata principale
-└── requirements.txt         # Pacchetti Python necessari
+│   ├── core/
+│   ├── database/
+│   └── etl/
+├── tests/
+├── Home.py
+└── requirements.txt
 
 
 ```
