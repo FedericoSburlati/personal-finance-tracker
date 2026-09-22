@@ -10,7 +10,7 @@ L'obiettivo del progetto è unificare le spese di conti diversi (es. Intesa Sanp
 
 ## Come Funziona il Progetto
 
-```
+```mermaid
 flowchart TD
     A[File CSV Estratto Conto<br/>Intesa / Hype / Satispay] --> B[Script di Parsing & Pulizia]
     B --> C[(Database MySQL)]
@@ -26,8 +26,6 @@ flowchart TD
 
     G --> H[Verifica Utente su Streamlit]
     H --> C
-
-
 ```
 
 ### Tecnologie e Librerie
