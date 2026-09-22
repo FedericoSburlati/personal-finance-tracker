@@ -6,7 +6,7 @@ from src.core.llm_classifier import classifica_con_rag
 
 class TestLLMClassifier:
 
-    def test_zona_calda_bypass_llm(self, mocker):
+    def test_forte_affinità_bypass_llm(self, mocker):
         """Se la similarità è >= 0.85, deve restituire il match RAG senza chiamare Ollama."""
         mock_vs = MagicMock()
         mock_vs.cerca_esempi_simili.return_value = [
@@ -18,12 +18,12 @@ class TestLLMClassifier:
         risultato = classifica_con_rag("Conad Spesa Alimentare", -30.0, "Intesa Sanpaolo")
 
         assert risultato["categoria"] == "Spesa"
-        assert risultato["metodo"] == "RAG Diretto (Zona Calda)"
+        assert risultato["metodo"] == "RAG Diretto (A)"
         assert risultato["confidenza"] >= 0.90
         # Ollama NON deve essere stato chiamato
         mock_ollama.assert_not_called()
 
-    def test_zona_grigia_few_shot(self, mocker):
+    def test_parziale_affinità_few_shot(self, mocker):
         """Tra 0.40 e 0.85 deve iniettare gli esempi nel prompt e chiamare Ollama."""
         mock_vs = MagicMock()
         mock_vs.cerca_esempi_simili.return_value = [
@@ -45,7 +45,7 @@ class TestLLMClassifier:
         risultato = classifica_con_rag("Nike Store Scarpe", -85.0, "Hype")
 
         assert risultato["categoria"] == "Shopping"
-        assert risultato["metodo"] == "LLM Dynamic Few-Shot (Zona Grigia)"
+        assert risultato["metodo"] == "LLM Dynamic Few-Shot (Parziale Affinità)"
         mock_ollama.assert_called_once()
         
         # Verifica che il prompt contenga gli esempi storici iniettati
@@ -54,7 +54,7 @@ class TestLLMClassifier:
         assert "ESEMPI STORICI REALI" in system_content
         assert "Decathlon Grugliasco" in system_content
 
-    def test_zona_fredda_zero_shot(self, mocker):
+    def test_scarsa_affinità_zero_shot(self, mocker):
         """Sotto 0.40 non deve iniettare esempi storici."""
         mock_vs = MagicMock()
         mock_vs.cerca_esempi_simili.return_value = [
@@ -75,7 +75,7 @@ class TestLLMClassifier:
 
         risultato = classifica_con_rag("Transazione Anomala 123", -10.0, "Intesa Sanpaolo")
 
-        assert risultato["metodo"] == "LLM Zero-Shot (Zona Fredda)"
+        assert risultato["metodo"] == "LLM Zero-Shot (Scarsa Affinità)"
         mock_ollama.assert_called_once()
 
     def test_resilienza_fallimento_ollama(self, mocker):

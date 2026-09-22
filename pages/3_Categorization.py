@@ -116,7 +116,7 @@ if not df_uncat.empty:
                 cat = risultato['categoria']
                 metodo = risultato['metodo']
                 
-                if "Zona Calda" in metodo:
+                if "Forte Affinità" in metodo:
                     st.write(f"⚡ *{causale_troncata}* $\\rightarrow$ **{cat}** (RAG Diretto, {risultato.get('motivo', '')})")
                 else:
                     st.write(f"🤖 *{causale_troncata}* $\\rightarrow$ **{cat}** (LLM Few-Shot, conf: {conf:.2f})")

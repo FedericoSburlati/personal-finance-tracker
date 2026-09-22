@@ -224,13 +224,15 @@ with tab_categorie:
                     text=f"€ {totale_spese:,.2f}",
                     fontSize=19,
                     fontWeight=600,
-                    yOffset=-6
+                    yOffset=-6,
+                    color="#94a3b8"
                 )
 
                 label_desc = alt.Chart(pd.DataFrame({"txt": ["Uscite Totali"]})).mark_text(
                     text="Uscite Totali",
                     fontSize=11,
-                    yOffset=14
+                    yOffset=14,
+                    color="#94a3b8"
                 )
 
                 donut_chart = (donut + label_totale + label_desc).properties(height=330).configure_view(strokeOpacity=0)
