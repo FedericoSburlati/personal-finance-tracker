@@ -13,19 +13,19 @@ L'obiettivo del progetto è unificare le spese di conti diversi (es. Intesa Sanp
 ```mermaid
 flowchart TD
     A[File CSV Estratto Conto<br/>Intesa / Hype / Satispay] --> B[Script di Parsing & Pulizia]
-    B --> C[(Database MySQL)]
+    B --> C[Nuove Spese Rilevate]
     
     subgraph Classificazione["Come vengono scelte le categorie"]
         C --> D[1. Controllo RegEx<br/>Nomi noti: Esselunga, Amazon, ecc.]
+        D -- Match trovato --> G[Categoria Assegnata]
         D -- Nessun match --> E[2. Ricerca per Similarità<br/>Sentence-Transformers]
-        E -- Punteggio alto --> G[Categoria Assegnata]
+        E -- Punteggio alto --> G
         E -- Dubbio o mai vista --> F[3. Chiamata a Ollama<br/>Llama 3.2 3B in locale]
-        D -- Trovata --> G
         F --> G
     end
 
     G --> H[Verifica Utente su Streamlit]
-    H --> C
+    H --> I[(Database MySQL Definitivo)]
 ```
 
 ### Tecnologie e Librerie
