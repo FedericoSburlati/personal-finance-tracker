@@ -1,0 +1,51 @@
+Data operazione;Data valuta;Conto;Tipologia;Nome;Descrizione;Importo
+03/01/2026;03/01/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Gianni Pinotto;Gelato bennet;-2,91
+07/01/2026;07/01/2026;IT02N00000000000EMH00946765;Pagamento POS;AMAZON EU;Acquisto cavo usb;-15,46
+12/01/2026;12/01/2026;IT02N00000000000EMH00946765;Pagamento POS;Spotify AB;Abbonamento Premium;-13,45
+17/01/2026;17/01/2026;IT02N00000000000EMH00946765;Pagamento POS;Netflix Italy;Piano Standard mensile;-15,82
+22/01/2026;22/01/2026;IT02N00000000000EMH00946765;Bonifico in entrata;Giulia Bianchi;Quota regalo compleanno;35,00
+27/01/2026;27/01/2026;IT02N00000000000EMH00946765;Pagamento POS;Deliveroo Italy;Cena poke bowl;-23,90
+01/02/2026;01/02/2026;IT02N00000000000EMH00946765;Pagamento POS;Apple Services;Spazio iCloud 50GB;-1,36
+06/02/2026;06/02/2026;IT02N00000000000EMH00946765;Pagamento POS;Decathlon Grugliasco;Abbigliamento running;-45,16
+11/02/2026;11/02/2026;IT02N00000000000EMH00946765;Pagamento POS;Uber BV;Corsa notturna taxi;-19,46
+16/02/2026;16/02/2026;IT02N00000000000EMH00946765;Bonifico ordinario;Mario Rossi;Restituzione prestito;-52,85
+21/02/2026;21/02/2026;IT02N00000000000EMH00946765;Pagamento POS;Iliad Italia;Ricarica mensile mobile;-10,04
+25/02/2026;25/02/2026;IT02N00000000000EMH00946765;Pagamento POS;Trenitalia SPA;Biglietto regionale veloce;-10,00
+02/03/2026;02/03/2026;IT02N00000000000EMH00946765;Pagamento POS;Steam Games;Acquisto videogioco;-30,49
+07/03/2026;07/03/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Marco Viola;Quota affitto campo padel;15,00
+12/03/2026;12/03/2026;IT02N00000000000EMH00946765;Pagamento POS;McDonalds Lingotto;Menu pranzo veloce;-12,05
+17/03/2026;17/03/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Gianni Pinotto;Gelato bennet;-4,12
+22/03/2026;22/03/2026;IT02N00000000000EMH00946765;Pagamento POS;AMAZON EU;Acquisto cavo usb;-17,39
+27/03/2026;27/03/2026;IT02N00000000000EMH00946765;Pagamento POS;Spotify AB;Abbonamento Premium;-11,45
+01/04/2026;01/04/2026;IT02N00000000000EMH00946765;Pagamento POS;Netflix Italy;Piano Standard mensile;-16,08
+06/04/2026;06/04/2026;IT02N00000000000EMH00946765;Bonifico in entrata;Giulia Bianchi;Quota regalo compleanno;35,00
+11/04/2026;11/04/2026;IT02N00000000000EMH00946765;Pagamento POS;Deliveroo Italy;Cena poke bowl;-22,80
+15/04/2026;15/04/2026;IT02N00000000000EMH00946765;Pagamento POS;Apple Services;Spazio iCloud 50GB;-3,02
+20/04/2026;20/04/2026;IT02N00000000000EMH00946765;Pagamento POS;Decathlon Grugliasco;Abbigliamento running;-43,66
+25/04/2026;25/04/2026;IT02N00000000000EMH00946765;Pagamento POS;Uber BV;Corsa notturna taxi;-17,63
+30/04/2026;30/04/2026;IT02N00000000000EMH00946765;Bonifico ordinario;Mario Rossi;Restituzione prestito;-51,27
+05/05/2026;05/05/2026;IT02N00000000000EMH00946765;Pagamento POS;Iliad Italia;Ricarica mensile mobile;-10,12
+10/05/2026;10/05/2026;IT02N00000000000EMH00946765;Pagamento POS;Trenitalia SPA;Biglietto regionale veloce;-10,21
+15/05/2026;15/05/2026;IT02N00000000000EMH00946765;Pagamento POS;Steam Games;Acquisto videogioco;-30,79
+20/05/2026;20/05/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Marco Viola;Quota affitto campo padel;15,00
+25/05/2026;25/05/2026;IT02N00000000000EMH00946765;Pagamento POS;McDonalds Lingotto;Menu pranzo veloce;-13,30
+30/05/2026;30/05/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Gianni Pinotto;Gelato bennet;-3,35
+03/06/2026;03/06/2026;IT02N00000000000EMH00946765;Pagamento POS;AMAZON EU;Acquisto cavo usb;-15,76
+08/06/2026;08/06/2026;IT02N00000000000EMH00946765;Pagamento POS;Spotify AB;Abbonamento Premium;-12,86
+13/06/2026;13/06/2026;IT02N00000000000EMH00946765;Pagamento POS;Netflix Italy;Piano Standard mensile;-16,83
+18/06/2026;18/06/2026;IT02N00000000000EMH00946765;Bonifico in entrata;Giulia Bianchi;Quota regalo compleanno;35,00
+23/06/2026;23/06/2026;IT02N00000000000EMH00946765;Pagamento POS;Deliveroo Italy;Cena poke bowl;-24,79
+28/06/2026;28/06/2026;IT02N00000000000EMH00946765;Pagamento POS;Apple Services;Spazio iCloud 50GB;-3,60
+03/07/2026;03/07/2026;IT02N00000000000EMH00946765;Pagamento POS;Decathlon Grugliasco;Abbigliamento running;-44,37
+08/07/2026;08/07/2026;IT02N00000000000EMH00946765;Pagamento POS;Uber BV;Corsa notturna taxi;-18,66
+13/07/2026;13/07/2026;IT02N00000000000EMH00946765;Bonifico ordinario;Mario Rossi;Restituzione prestito;-51,68
+18/07/2026;18/07/2026;IT02N00000000000EMH00946765;Pagamento POS;Iliad Italia;Ricarica mensile mobile;-11,13
+22/07/2026;22/07/2026;IT02N00000000000EMH00946765;Pagamento POS;Trenitalia SPA;Biglietto regionale veloce;-10,25
+27/07/2026;27/07/2026;IT02N00000000000EMH00946765;Pagamento POS;Steam Games;Acquisto videogioco;-32,95
+01/08/2026;01/08/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Marco Viola;Quota affitto campo padel;15,00
+06/08/2026;06/08/2026;IT02N00000000000EMH00946765;Pagamento POS;McDonalds Lingotto;Menu pranzo veloce;-13,01
+11/08/2026;11/08/2026;IT02N00000000000EMH00946765;Bonifico istantaneo;Gianni Pinotto;Gelato bennet;-3,04
+16/08/2026;16/08/2026;IT02N00000000000EMH00946765;Pagamento POS;AMAZON EU;Acquisto cavo usb;-16,76
+21/08/2026;21/08/2026;IT02N00000000000EMH00946765;Pagamento POS;Spotify AB;Abbonamento Premium;-12,16
+26/08/2026;26/08/2026;IT02N00000000000EMH00946765;Pagamento POS;Netflix Italy;Piano Standard mensile;-16,71
+31/08/2026;31/08/2026;IT02N00000000000EMH00946765;Bonifico in entrata;Giulia Bianchi;Quota regalo compleanno;35,00

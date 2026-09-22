@@ -1,16 +1,21 @@
-# Ignora la cache di Python
+# cache python
 __pycache__/
 *.pyc
 
-# Ignora file di ambiente con credenziali o chiavi API
+# dati di accesso db
 .env
+*.local
 
-# Ignora eventuali file di database fisici (es. SQLite)
+# db
 *.db
 *.sqlite3
 
-# Ignora dati raw o CSV caricati (visto il file Upload_CSV.py)
-*.csv
-
-# Ignora file di appunti personali
-IDEAS.txt
+#build e dipendenze
+.vscode/
+build/
+dist/
+node_modules/
+bin/
+obj/
+.vscode/
+.idea/

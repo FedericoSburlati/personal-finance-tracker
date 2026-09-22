@@ -5,3 +5,7 @@ backgroundColor = "#0a0d14"
 secondaryBackgroundColor = "#131b26"
 textColor = "#f8fafc"
 font = "sans serif"
+
+[client]
+# nasconde icona caricamento nativa
+toolbarMode = "minimal"

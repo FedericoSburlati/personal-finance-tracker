@@ -1,0 +1,51 @@
+Data;Tipo;Descrizione;Importo;Nome;Stato;Totale;Saldo;Id Transazione
+05/01/2026 14:43;Ricarica Satispay;(IT*****6765);€25,00;Dalla Banca;Approvato;€25,00;€50,00;6d7a6989-b2d2-43aa-947f-fbf6377335d5
+09/01/2026 20:51;Ricarica Satispay;(IT*****6765);€50,00;Dalla Banca;Approvato;€50,00;€50,00;299ef7fe-2b75-43c9-b65e-cd23c32247cf
+14/01/2026 14:50;Pagamento;Caffè e cornetto;-€6,19;Bar Centrale;Approvato;-€6,19;€50,00;50f2ced8-1b71-4d21-8b88-8d0ca740fe94
+19/01/2026 22:40;Pagamento;Pizza margherita;-€14,68;Pizzeria Bella Napoli;Approvato;-€14,68;€50,00;28e6acb8-a19e-4522-a627-10fa3bac064d
+24/01/2026 11:47;Scambio;Regalo laurea;€20,00;Luca Verdi;Approvato;€20,00;€50,00;abfa72fe-2b38-4d8b-be67-6978c6664e86
+29/01/2026 08:30;Pagamento;Pranzo lavoro;-€13,53;Trattoria Da Gigi;Approvato;-€13,53;€50,00;c9341a95-e978-4a34-ab89-e4bb0a1e3302
+02/02/2026 12:56;Pagamento;Libro universitario;-€28,12;Libreria Campus;Approvato;-€28,12;€50,00;17e5707a-529a-4042-aac9-23d486967f7f
+07/02/2026 13:38;Pagamento;Aperitivo;-€10,45;Bar Mokambo;Approvato;-€10,45;€50,00;35b3074a-b433-4bd2-a24a-bf1d1646a488
+12/02/2026 16:30;Scambio;Quota calcetto;-€13,81;Marco Neri;Approvato;-€13,81;€50,00;bd79d7c5-81ed-4053-ad48-7075570dc5a6
+17/02/2026 14:46;Movimento;Accantonamento salvadanaio;-€31,21;Verso la Banca;Approvato;-€31,21;€50,00;0e47db07-912a-411c-aabd-5f251da1c0ee
+22/02/2026 17:55;Pagamento;Scontrino non valido;-€16,23;Bar Roma;Annullato;-€16,23;€50,00;c9c8b974-439f-4f4e-8152-9690c78b8571
+26/02/2026 22:07;Pagamento;Gelato artigianale;-€5,29;Gelateria Grom;Approvato;-€5,29;€50,00;fbd28f17-da3f-448e-b56e-a4665935f218
+03/03/2026 11:00;Pagamento;Farmaci banco;-€10,40;Farmacia San Salvario;Approvato;-€10,40;€50,00;0ff6095a-fb66-49a6-8b50-1ef6fef7f129
+08/03/2026 09:35;Pagamento;Biglietti cinema;-€16,76;Cinema Ideal;Approvato;-€16,76;€50,00;4c73d87a-fe09-4a3a-a465-4f90c5359edf
+13/03/2026 22:42;Scambio;Spesa condivisa;€18,50;Giulia Bianchi;Approvato;€18,50;€50,00;3b8ea293-c048-461c-9c95-352bbe274cf8
+18/03/2026 12:24;Ricarica Satispay;(IT*****6765);€25,00;Dalla Banca;Approvato;€25,00;€50,00;38cab53d-68f9-4bff-8b39-a984fe669b49
+22/03/2026 17:07;Ricarica Satispay;(IT*****6765);€50,00;Dalla Banca;Approvato;€50,00;€50,00;6ad2ecdf-7c13-4ed5-beff-49bc02fc58f0
+27/03/2026 13:10;Pagamento;Caffè e cornetto;-€4,11;Bar Centrale;Approvato;-€4,11;€50,00;482bb594-1aa8-4180-9691-9445c9b15d58
+01/04/2026 12:44;Pagamento;Pizza margherita;-€17,27;Pizzeria Bella Napoli;Approvato;-€17,27;€50,00;2625e3d5-decf-4004-a0fa-ce21a39f990e
+06/04/2026 17:46;Scambio;Regalo laurea;€20,00;Luca Verdi;Approvato;€20,00;€50,00;3d99e30b-21cc-4aae-9add-d49a7b235701
+11/04/2026 13:19;Pagamento;Pranzo lavoro;-€13,62;Trattoria Da Gigi;Approvato;-€13,62;€50,00;d0a6ad0d-7197-40a1-9ea6-a35d6db97995
+15/04/2026 13:23;Pagamento;Libro universitario;-€25,73;Libreria Campus;Approvato;-€25,73;€50,00;8661e903-ac06-46aa-8cdb-1e48f19143ac
+20/04/2026 14:39;Pagamento;Aperitivo;-€9,20;Bar Mokambo;Approvato;-€9,20;€50,00;cab19abb-4922-44a2-9a4a-ec7929d16e86
+25/04/2026 22:06;Scambio;Quota calcetto;-€10,52;Marco Neri;Approvato;-€10,52;€50,00;7f828cfc-f53e-4c61-8e26-ddcfca477c67
+30/04/2026 17:14;Movimento;Accantonamento salvadanaio;-€33,90;Verso la Banca;Approvato;-€33,90;€50,00;c0461cbc-11ab-47da-965a-578d984ac7ea
+05/05/2026 20:51;Pagamento;Scontrino non valido;-€19,94;Bar Roma;Annullato;-€19,94;€50,00;5fd44255-764a-41c7-9ba2-8f58cfba394b
+09/05/2026 22:08;Pagamento;Gelato artigianale;-€5,50;Gelateria Grom;Approvato;-€5,50;€50,00;2ad4c236-abb0-40a5-99a8-d8df64543960
+14/05/2026 14:41;Pagamento;Farmaci banco;-€11,84;Farmacia San Salvario;Approvato;-€11,84;€50,00;83404798-cdf9-4f09-84fd-a33398be2739
+19/05/2026 11:10;Pagamento;Biglietti cinema;-€16,99;Cinema Ideal;Approvato;-€16,99;€50,00;82957221-7cfd-4e51-98a6-a0d965bb4360
+24/05/2026 11:06;Scambio;Spesa condivisa;€18,50;Giulia Bianchi;Approvato;€18,50;€50,00;99d1d378-9cb7-4b16-98f1-b4bc23e580cf
+29/05/2026 17:51;Ricarica Satispay;(IT*****6765);€25,00;Dalla Banca;Approvato;€25,00;€50,00;fd9369eb-1abc-47e2-9c5d-a117802dde25
+02/06/2026 22:04;Ricarica Satispay;(IT*****6765);€50,00;Dalla Banca;Approvato;€50,00;€50,00;accf0086-9feb-47a0-824d-afd807e6bcd0
+07/06/2026 21:49;Pagamento;Caffè e cornetto;-€4,01;Bar Centrale;Approvato;-€4,01;€50,00;5bf61291-6c13-40ae-adf8-e588f13b6ca8
+12/06/2026 08:50;Pagamento;Pizza margherita;-€18,34;Pizzeria Bella Napoli;Approvato;-€18,34;€50,00;07f3a1c6-2954-4885-bf25-685f48dffa37
+17/06/2026 12:50;Scambio;Regalo laurea;€20,00;Luca Verdi;Approvato;€20,00;€50,00;50edea31-5c92-4618-8b76-dd72bcdb2259
+22/06/2026 11:26;Pagamento;Pranzo lavoro;-€17,00;Trattoria Da Gigi;Approvato;-€17,00;€50,00;10f07492-3af6-4180-9a67-34c2d9933019
+26/06/2026 22:11;Pagamento;Libro universitario;-€26,44;Libreria Campus;Approvato;-€26,44;€50,00;1f3f964a-02d1-44af-acd1-f75fb396d0ef
+01/07/2026 15:56;Pagamento;Aperitivo;-€11,59;Bar Mokambo;Approvato;-€11,59;€50,00;44e53289-dad9-4f32-8698-00478b977fe8
+06/07/2026 20:47;Scambio;Quota calcetto;-€12,54;Marco Neri;Approvato;-€12,54;€50,00;7940c45d-7592-4e91-9572-546ff56327e6
+11/07/2026 17:34;Movimento;Accantonamento salvadanaio;-€30,70;Verso la Banca;Approvato;-€30,70;€50,00;20d1012f-abcb-4a56-b414-91fb568fcc71
+16/07/2026 13:39;Pagamento;Scontrino non valido;-€18,76;Bar Roma;Annullato;-€18,76;€50,00;655c7586-5d47-4ad6-b7fa-df4651bf916b
+20/07/2026 15:18;Pagamento;Gelato artigianale;-€5,22;Gelateria Grom;Approvato;-€5,22;€50,00;88c38e22-824a-42ec-9991-fd8cde3cf152
+25/07/2026 16:07;Pagamento;Farmaci banco;-€10,01;Farmacia San Salvario;Approvato;-€10,01;€50,00;80281f71-a88a-4a63-b5d6-ac38dc763332
+30/07/2026 18:44;Pagamento;Biglietti cinema;-€20,08;Cinema Ideal;Approvato;-€20,08;€50,00;29050b38-7818-4272-b067-848d8738331d
+04/08/2026 14:13;Scambio;Spesa condivisa;€18,50;Giulia Bianchi;Approvato;€18,50;€50,00;eff2f7ff-52f9-4841-85e9-386d915f90ea
+09/08/2026 08:03;Ricarica Satispay;(IT*****6765);€25,00;Dalla Banca;Approvato;€25,00;€50,00;b889bc33-47b0-4f3f-8ce0-f2ff7ccf7114
+13/08/2026 12:58;Ricarica Satispay;(IT*****6765);€50,00;Dalla Banca;Approvato;€50,00;€50,00;2995b2d8-b5f7-4dd6-b1ea-4502fa037a3c
+18/08/2026 20:30;Pagamento;Caffè e cornetto;-€5,91;Bar Centrale;Approvato;-€5,91;€50,00;c6cfd49d-a3db-478b-9f25-20bb52f29b94
+23/08/2026 20:53;Pagamento;Pizza margherita;-€19,42;Pizzeria Bella Napoli;Approvato;-€19,42;€50,00;2cb65e4a-c173-416d-8055-4d15292ba0d9
+28/08/2026 08:01;Scambio;Regalo laurea;€20,00;Luca Verdi;Approvato;€20,00;€50,00;794cd5d7-c492-4dea-97c3-37794b3e842b
